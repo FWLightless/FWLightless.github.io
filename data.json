@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "title": {
+      "zh": "构建高可用系统与<br><span>卓越数字体验</span>",
+      "en": "Building Scalable Systems & <br><span>Digital Experiences</span>"
+    },
+    "subtitle": {
+      "zh": "全栈工程师 / 游戏开发者 / 开源贡献者",
+      "en": "Full-Stack Engineer / Game Developer / Open-Source Contributor"
+    }
+  },
+  "portfolio": [
+    {
+      "id": "proj-1",
+      "title": {
+        "zh": "赛博朋克风格 2D 动作游戏 Demo",
+        "en": "Cyberpunk 2D Action Game Demo"
+      },
+      "description": {
+        "zh": "基于 Unity 引擎开发的高节奏横版动作游戏，具备自研状态机与流畅战斗打系系统。",
+        "en": "Fast-paced side-scrolling action game built with Unity, featuring custom FSM and tight combat dynamics."
+      },
+      "thumbnail": "assets/images/portfolio/project-1-thumb.webp",
+      "tags": ["Unity", "C#", "ShaderLab"],
+      "links": {
+        "demo": "https://pub-r2.example.com/games/cyberpunk-demo/index.html",
+        "github": "https://github.com/example/cyberpunk-demo",
+        "pan": "https://pan.baidu.com/s/1xxxxxx (提取码: a1b2)"
+      },
+      "details": {
+        "zh": "项目深度使用了 Unity 的 Universal Render Pipeline (URP)，自定义实现了 2D 光影着色器，并通过对象池模式优化了粒子系统的内存分配。",
+        "en": "Utilized Unity Universal Render Pipeline (URP) with custom 2D lighting shaders, leveraging Object Pooling for particle memory optimization."
+      }
+    }
+  ],
+  "timeline": [
+    {
+      "period": "2022 - Present",
+      "role": {
+        "zh": "高级前端研发工程师",
+        "en": "Senior Frontend Engineer"
+      },
+      "company": {
+        "zh": "Tech Corp 科技公司",
+        "en": "Tech Corp Inc."
+      },
+      "description": {
+        "zh": "主导核心 SaaS 平台前端架构演进，设计微前端方案并提升页面性能 40%。",
+        "en": "Led SaaS platform frontend architectural evolution, designed micro-frontend strategy, improving performance by 40%."
+      }
+    }
+  ],
+  "skills": [
+    {
+      "category": { "zh": "前端开发", "en": "Frontend" },
+      "items": ["TypeScript", "React", "Vue.js", "CSS3 / Tailwind"]
+    },
+    {
+      "category": { "zh": "游戏开发", "en": "Game Dev" },
+      "items": ["Unity", "C#", "HLSL / URP", "Godot"]
+    }
+  ],
+  "resources": [
+    {
+      "id": "res-1",
+      "title": {
+        "zh": "复古像素 UI 图标资产包",
+        "en": "Retro Pixel UI Icon Pack"
+      },
+      "description": {
+        "zh": "包含 200+ 矢量像素风格图标，适用于 2D 独立游戏原型设计。",
+        "en": "Contains 200+ vector pixel art icons suitable for 2D indie game prototyping."
+      },
+      "thumbnail": "assets/images/resources/res-1-thumb.webp",
+      "downloadUrl": "https://pub-r2.example.com/assets/pixel-icons.zip",
+      "fileSize": "14.2 MB"
+    }
+  ]
+}

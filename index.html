@@ -1,488 +1,121 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light" data-lang="zh">
+<html lang="zh-CN" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FWLightless | Personal Space</title>
-    <style>
-        :root[data-theme="light"] {
-            --bg-primary: #f8f7f4;
-            --bg-secondary: #eeece6;
-            --bg-card: #ffffff;
-            --text-primary: #2d3130;
-            --text-secondary: #6e7271;
-            --accent: #5a6577;
-            --border: #dcd9d1;
-            --tag-bg: #e2e0d8;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Portfolio & Resource Hub</title>
+  <meta name="description" content="Personal Portfolio, Career Timeline, and Game Resource Center">
+  
+  <!-- Open Graph & Social Cards -->
+  <meta property="og:title" content="Developer Portfolio & Resource Hub">
+  <meta property="og:description" content="Explore my engineering projects, career journey, and game development resources.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/og-cover.webp">
+  <meta name="twitter:card" content="summary_large_image">
 
-        :root[data-theme="dark"] {
-            --bg-primary: #1a1c1e;
-            --bg-secondary: #24272a;
-            --bg-card: #222529;
-            --text-primary: #e3e5e8;
-            --text-secondary: #9da3a8;
-            --accent: #92a1b6;
-            --border: #383c42;
-            --tag-bg: #2d3238;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, monospace;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding-bottom: 60px;
-        }
-
-        a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Top Bar Controls */
-        .controls {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            padding: 20px 0;
-        }
-
-        .btn {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 6px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-family: inherit;
-        }
-
-        .btn:hover {
-            background: var(--border);
-        }
-
-        /* Hero Header Section */
-        header {
-            border: 1px dashed var(--border);
-            padding: 24px;
-            background-color: var(--bg-card);
-            border-radius: 6px;
-            margin-bottom: 30px;
-        }
-
-        .hero-top {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 4px;
-            background-color: var(--border);
-            object-fit: cover;
-            border: 2px solid var(--accent);
-        }
-
-        .hero-info {
-            flex: 1;
-        }
-
-        .hero-info h1 {
-            font-size: 1.8rem;
-            margin-bottom: 4px;
-            letter-spacing: -0.5px;
-        }
-
-        .hero-info .tagline {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-
-        .hero-status {
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-family: monospace;
-        }
-
-        /* Navigation Bar */
-        nav {
-            display: flex;
-            gap: 15px;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 0;
-            margin-top: 20px;
-            flex-wrap: wrap;
-            font-size: 0.9rem;
-        }
-
-        nav a {
-            font-weight: 500;
-        }
-
-        /* Main Section Common */
-        section {
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-
-        .section-title::before {
-            content: "✦";
-            color: var(--accent);
-            font-size: 0.9rem;
-        }
-
-        /* Grid Cards Layout */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 16px;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card:hover {
-            border-color: var(--accent);
-        }
-
-        .card h3 {
-            font-size: 1.05rem;
-            margin-bottom: 8px;
-        }
-
-        .card p {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-
-        .card-tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background: var(--tag-bg);
-            color: var(--text-primary);
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 3px;
-        }
-
-        /* Timeline Section */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 16px;
-            background: var(--bg-card);
-            padding: 14px 16px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-        }
-
-        .time {
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: var(--accent);
-            min-width: 90px;
-        }
-
-        .timeline-content h4 {
-            font-size: 0.98rem;
-            margin-bottom: 4px;
-        }
-
-        .timeline-content p {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-        }
-
-        /* Skills Section */
-        .skills-group {
-            background: var(--bg-card);
-            padding: 16px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            margin-bottom: 12px;
-        }
-
-        .skills-group h4 {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Footer / Contact */
-        footer {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        /* Language Toggle Display Control */
-        [data-lang="zh"] .lang-en { display: none !important; }
-        [data-lang="en"] .lang-zh { display: none !important; }
-
-        @media (max-width: 600px) {
-            .hero-top { flex-direction: column; align-items: flex-start; }
-            .timeline-item { flex-direction: column; gap: 4px; }
-            .time { min-width: auto; }
-        }
-    </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="container">
-        <!-- System Controls -->
-        <div class="controls">
-            <button class="btn" id="lang-toggle" onclick="toggleLanguage()">English</button>
-            <button class="btn" id="theme-toggle" onclick="toggleTheme()">☀️ / 🌙</button>
-        </div>
-
-        <!-- Hero Header -->
-        <header>
-            <div class="hero-top">
-                <img src="https://via.placeholder.com/90" alt="Avatar" class="avatar">
-                <div class="hero-info">
-                    <h1>FWLightless</h1>
-                    <div class="tagline">
-                        <span class="lang-zh">开发者 / 探索者 / 游戏爱好者</span>
-                        <span class="lang-en">Developer / Explorer / Gaming Enthusiast</span>
-                    </div>
-                    <div class="hero-status">
-                        <span class="lang-zh">→ 正在构建个人代码与资源空间...</span>
-                        <span class="lang-en">→ Building personal space & resources...</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Navigation Bar -->
-            <nav>
-                <a href="#about"><span class="lang-zh">关于</span><span class="lang-en">About</span></a>
-                <a href="#projects"><span class="lang-zh">作品集</span><span class="lang-en">Portfolio</span></a>
-                <a href="#games"><span class="lang-zh">游戏资源</span><span class="lang-en">Game Hub</span></a>
-                <a href="#timeline"><span class="lang-zh">经历</span><span class="lang-en">Timeline</span></a>
-                <a href="#skills"><span class="lang-zh">技能</span><span class="lang-en">Skills</span></a>
-                <a href="#contact"><span class="lang-zh">联系方式</span><span class="lang-en">Contact</span></a>
-            </nav>
-        </header>
-
-        <!-- About Me Section -->
-        <section id="about">
-            <h2 class="section-title">
-                <span class="lang-zh">关于我</span>
-                <span class="lang-en">About Me</span>
-            </h2>
-            <div style="background: var(--bg-card); padding: 18px; border-radius: 6px; border: 1px solid var(--border);">
-                <p class="lang-zh">你好！我是 FWLightless。欢迎来到我的个人主页。我专注于软件开发，热爱探索新技术，同时也喜欢收集与分享各类游戏资源和有趣的小工具。</p>
-                <p class="lang-en">Hello! I'm FWLightless. Welcome to my site. I am passionate about software development, exploring new technology, and sharing game resources & neat tools.</p>
-            </div>
-        </section>
-
-        <!-- Portfolio / Projects Section -->
-        <section id="projects">
-            <h2 class="section-title">
-                <span class="lang-zh">作品集</span>
-                <span class="lang-en">Portfolio & Projects</span>
-            </h2>
-            <div class="grid">
-                <div class="card">
-                    <div>
-                        <h3>Project Name 01</h3>
-                        <p class="lang-zh">简洁的项目描述，说明开发技术和主要实现的功能。</p>
-                        <p class="lang-en">Brief project description explaining technologies used and main functions.</p>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Web</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div>
-                        <h3>Project Name 02</h3>
-                        <p class="lang-zh">另一个项目，可以是设计作品、开源库或独立网页。</p>
-                        <p class="lang-en">Another project: design showcase, open-source library, or web app.</p>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">HTML/CSS</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Game Resources Section (Optional Extras) -->
-        <section id="games">
-            <h2 class="section-title">
-                <span class="lang-zh">游戏资源分享</span>
-                <span class="lang-en">Game Resources & Vault</span>
-            </h2>
-            <div class="grid">
-                <div class="card">
-                    <div>
-                        <h3>🎮 Game Mod / Preset</h3>
-                        <p class="lang-zh">在此处分享游戏补丁、Mod、自制画质预设或配置文件。</p>
-                        <p class="lang-en">Share game mods, patches, graphics presets, or custom configs here.</p>
-                    </div>
-                    <a href="#" class="btn" style="align-self: flex-start; margin-top: 8px;">
-                        <span class="lang-zh">查看资源</span><span class="lang-en">View Resource</span>
-                    </a>
-                </div>
-                <div class="card">
-                    <div>
-                        <h3>🕹️ Game Utilities</h3>
-                        <p class="lang-zh">分享实用的游戏辅助工具、小软件或汉化补丁链接。</p>
-                        <p class="lang-en">Useful game utilities, tools, or translation patches download link.</p>
-                    </div>
-                    <a href="#" class="btn" style="align-self: flex-start; margin-top: 8px;">
-                        <span class="lang-zh">查看资源</span><span class="lang-en">View Resource</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Timeline Section -->
-        <section id="timeline">
-            <h2 class="section-title">
-                <span class="lang-zh">个人经历</span>
-                <span class="lang-en">Timeline</span>
-            </h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="time">2024 - <span class="lang-zh">至今</span><span class="lang-en">Present</span></div>
-                    <div class="timeline-content">
-                        <h4 class="lang-zh">计算机科学 / 软件项目探索</h4>
-                        <h4 class="lang-en">Computer Science & Projects</h4>
-                        <p class="lang-zh">主修相关课程，并自主开发实践各项独立应用与算法练习。</p>
-                        <p class="lang-en">Focusing on CS core concepts and building independent software projects.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="time">2023 - 2024</div>
-                    <div class="timeline-content">
-                        <h4 class="lang-zh">项目/学术里程碑</h4>
-                        <h4 class="lang-en">Milestone / Academic Achievement</h4>
-                        <p class="lang-zh">完成重要项目构建或获得阶段性成果。</p>
-                        <p class="lang-en">Achieved key project build or academic milestone.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills">
-            <h2 class="section-title">
-                <span class="lang-zh">技能树</span>
-                <span class="lang-en">Skills</span>
-            </h2>
-            <div class="skills-group">
-                <h4>Languages & Tools</h4>
-                <div class="card-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">HTML5/CSS3</span>
-                    <span class="tag">Git & GitHub</span>
-                    <span class="tag">LaTeX</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section & Footer -->
-        <footer id="contact">
-            <div>
-                © 2026 FWLightless. Built with GitHub Pages.
-            </div>
-            <div class="social-links">
-                <a href="https://github.com/FWLightless" target="_blank">GitHub</a>
-                <a href="mailto:your-email@example.com">Email</a>
-                <a href="#" target="_blank">LinkedIn</a>
-            </div>
-        </footer>
+  <!-- 置顶导航栏 -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="#hero" class="nav-brand" id="nav-logo">DevHub.</a>
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#hero" class="nav-link active" data-i18n="nav.home">首页</a></li>
+          <li><a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">作品集</a></li>
+          <li><a href="#timeline" class="nav-link" data-i18n="nav.timeline">经历</a></li>
+          <li><a href="#skills" class="nav-link" data-i18n="nav.skills">技能树</a></li>
+          <li><a href="#resources" class="nav-link" data-i18n="nav.resources">资源区</a></li>
+          <li><a href="#contact" class="nav-link" data-i18n="nav.contact">联系</a></li>
+        </ul>
+      </nav>
+      <div class="nav-controls">
+        <button id="lang-toggle" class="btn-control" aria-label="Toggle Language">EN</button>
+        <button id="theme-toggle" class="btn-control" aria-label="Toggle Dark Mode">🌙</button>
+      </div>
     </div>
+  </header>
 
-    <!-- Interactive Scripts -->
-    <script>
-        // Language Toggle Script
-        function toggleLanguage() {
-            const html = document.documentElement;
-            const currentLang = html.getAttribute('data-lang');
-            const newLang = currentLang === 'zh' ? 'en' : 'zh';
-            html.setAttribute('data-lang', newLang);
-            document.getElementById('lang-toggle').innerText = newLang === 'zh' ? 'English' : '中文';
-        }
+  <main>
+    <!-- Hero 简介模块 -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1 class="hero-title" id="hero-title">构建高可用系统与<br><span>卓越数字体验</span></h1>
+          <p class="hero-subtitle" id="hero-subtitle">全栈工程师 / 游戏开发者 / 开源贡献者</p>
+          <div style="display: flex; gap: 1rem;">
+            <a href="#portfolio" class="btn-control" style="background: var(--accent-color); color: #fff; border: none; padding: 0.8rem 1.5rem; text-decoration: none;" data-i18n="hero.cta_work">浏览作品</a>
+            <a href="#contact" class="btn-control" style="padding: 0.8rem 1.5rem; text-decoration: none;" data-i18n="hero.cta_contact">取得联系</a>
+          </div>
+        </div>
+        <div class="hero-avatar" style="text-align: center;">
+          <img src="assets/images/avatar.webp" alt="Developer Portrait" width="280" height="280" style="border-radius: 50%; border: 4px solid var(--accent-color); object-fit: cover;" loading="eager">
+        </div>
+      </div>
+    </section>
 
-        // Theme Toggle Script
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            html.setAttribute('data-theme', newTheme);
-        }
-    </script>
+    <!-- 作品集模块 -->
+    <section id="portfolio" class="container">
+      <h2 class="section-title" data-i18n="portfolio.title">精选作品集</h2>
+      <div class="grid-cards" id="portfolio-container">
+        <!-- 由 render.js 动态注入 -->
+      </div>
+    </section>
+
+    <!-- 经历时间轴模块 -->
+    <section id="timeline" class="container">
+      <h2 class="section-title" data-i18n="timeline.title">职业与教育经历</h2>
+      <div class="timeline" id="timeline-container">
+        <!-- 由 render.js 动态注入 -->
+      </div>
+    </section>
+
+    <!-- 技能树模块 -->
+    <section id="skills" class="container">
+      <h2 class="section-title" data-i18n="skills.title">核心技能树</h2>
+      <div class="grid-cards" id="skills-container" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <!-- 由 render.js 动态注入 -->
+      </div>
+    </section>
+
+    <!-- 游戏与开发资源区 -->
+    <section id="resources" class="container">
+      <h2 class="section-title" data-i18n="resources.title">游戏资源与开发工具</h2>
+      <div class="grid-cards" id="resources-container">
+        <!-- 由 render.js 动态注入 -->
+      </div>
+    </section>
+  </main>
+
+  <!-- 联系方式模块 / 页脚 -->
+  <footer id="contact" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 4rem 0 2rem 0;">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: var(--step-2); margin-bottom: 1rem;" data-i18n="contact.title">保持联系</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;" data-i18n="contact.desc">无论是项目合作、技术交流还是游戏开发探讨，欢迎随时通过以下方式与我取得联系。</p>
+      <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem;">
+        <a href="mailto:alex@example.com" class="btn-control" style="text-decoration: none;">Email</a>
+        <a href="https://github.com" target="_blank" rel="noopener" class="btn-control" style="text-decoration: none;">GitHub</a>
+        <a href="https://twitter.com" target="_blank" rel="noopener" class="btn-control" style="text-decoration: none;">Twitter</a>
+      </div>
+      <p style="font-size: var(--step--1); color: var(--text-secondary);">&copy; 2025 DevHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- 动态通用模态框 Component -->
+  <div class="modal-overlay" id="global-modal" aria-hidden="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modal-title">Modal Title</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body-content">
+        <!-- 模态框内容由 JS 动态插入 -->
+      </div>
+    </div>
+  </div>
+
+  <script src="render.js"></script>
 </body>
 </html>
