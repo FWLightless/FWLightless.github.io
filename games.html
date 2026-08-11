@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FWLightless | Game Resource Vault</title>
+    <style>
+        :root[data-theme="light"] {
+            --bg-primary: #f8f7f4;
+            --bg-secondary: #eeece6;
+            --bg-card: #ffffff;
+            --text-primary: #2d3130;
+            --text-secondary: #6e7271;
+            --accent: #5a6577;
+            --border: #dcd9d1;
+            --tag-bg: #e2e0d8;
+            --accent-blue: #4a729a;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-primary: #1a1c1e;
+            --bg-secondary: #24272a;
+            --bg-card: #222529;
+            --text-primary: #e3e5e8;
+            --text-secondary: #9da3a8;
+            --accent: #92a1b6;
+            --border: #383c42;
+            --tag-bg: #2d3238;
+            --accent-blue: #6b9ac4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, monospace;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Controls & Top Nav */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .brand-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background: var(--border);
+        }
+
+        /* Banner / Announcement Section */
+        .announcement-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .banner-tag {
+            display: inline-block;
+            background: var(--tag-bg);
+            color: var(--accent-blue);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .announcement-banner h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .faq-list {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Section Title */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        /* Game Grid Layout */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .game-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-blue);
+        }
+
+        .cover-wrapper {
+            width: 100%;
+            height: 140px;
+            background-color: var(--bg-secondary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            overflow: hidden;
+        }
+
+        .cover-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-card-body {
+            padding: 12px;
+        }
+
+        .game-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .game-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            color: var(--text-primary);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        /* Single Game View Container */
+        #game-detail-view {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .back-btn {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .detail-header {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .detail-cover {
+            width: 240px;
+            height: 150px;
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            object-fit: cover;
+            border: 1px solid var(--border);
+        }
+
+        .detail-meta {
+            flex: 1;
+        }
+
+        .detail-meta h1 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .meta-list {
+            margin-top: 12px;
+            font-size: 0.88rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: var(--text-secondary);
+        }
+
+        .detail-section {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .detail-section h4 {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .screenshot-item {
+            width: 100%;
+            height: 130px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+        }
+
+        /* Language Toggle Display Control */
+        [data-lang="zh"] .lang-en { display: none !important; }
+        [data-lang="en"] .lang-zh { display: none !important; }
+
+        @media (max-width: 600px) {
+            .detail-header { flex-direction: column; }
+            .detail-cover { width: 100%; height: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-bar">
+            <a href="index.html" class="brand-logo">
+                ← FWLightless Home
+            </a>
+            <div class="controls">
+                <button class="btn" id="lang-toggle" onclick="toggleLanguage()">English</button>
+                <button class="btn" id="theme-toggle" onclick="toggleTheme()">☀️ / 🌙</button>
+            </div>
+        </div>
+
+        <!-- MAIN LIST VIEW -->
+        <div id="game-list-view">
+            <!-- Website Description & FAQ Banner -->
+            <div class="announcement-banner">
+                <span class="banner-tag">
+                    <span class="lang-zh">网站说明与常见问题</span>
+                    <span class="lang-en">Site Info & FAQ</span>
+                </span>
+                <h2>
+                    <span class="lang-zh">欢迎来到游戏资源空间！</span>
+                    <span class="lang-en">Welcome to Game Resource Vault!</span>
+                </h2>
+                <p class="lang-zh" style="color: var(--text-secondary); font-size: 0.92rem;">
+                    本站致力于收集与整理游戏补丁、实用工具、自制配置与相关游戏信息。目前网站正处于初期建设状态。
+                </p>
+                <p class="lang-en" style="color: var(--text-secondary); font-size: 0.92rem;">
+                    This site collects game patches, utilities, custom presets, and game info. Currently under active construction.
+                </p>
+
+                <div class="faq-list">
+                    <div>
+                        <strong>Q: <span class="lang-zh">如何解压文件？</span><span class="lang-en">How to extract files?</span></strong>
+                        <p>A: <span class="lang-zh">推荐使用 7-Zip 或 WinRAR 最新版，若有解压密码将标注在下载页面。</span><span class="lang-en">Use latest 7-Zip or WinRAR. Passwords will be listed if required.</span></p>
+                    </div>
+                    <div>
+                        <strong>Q: <span class="lang-zh">游戏报毒怎么办？</span><span class="lang-en">Antivirus warnings?</span></strong>
+                        <p>A: <span class="lang-zh">部分汉化补丁或修改工具可能引发误报，请自行添加信任或在虚拟机中运行。</span><span class="lang-en">Some patches/tools may trigger false positives. Please add exception manually.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Catalog Header -->
+            <div class="section-header">
+                <h3>
+                    <span class="lang-zh">游戏列表</span>
+                    <span class="lang-en">Game Catalog</span>
+                </h3>
+                <span style="font-size: 0.85rem; color: var(--text-secondary);">
+                    <span class="lang-zh">网站建设中（预留展示位）</span>
+                    <span class="lang-en">Under Construction (Placeholders)</span>
+                </span>
+            </div>
+
+            <!-- Game Cards Grid -->
+            <div class="game-grid">
+                <!-- Demo Game 01 (Clickable Demo) -->
+                <div class="game-card" onclick="openGameDetail('demo1')">
+                    <div class="cover-wrapper">
+                        <span>[ Game Cover Placeholder ]</span>
+                    </div>
+                    <div class="game-card-body">
+                        <div class="game-title">宝石少女 2nd.cut:For the Exquisite Attire</div>
+                        <div class="game-tags">
+                            <span class="tag">PC</span>
+                            <span class="tag">中文</span>
+                            <span class="tag">示例</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder Cards -->
+                <div class="game-card" style="opacity: 0.6; cursor: not-allowed;">
+                    <div class="cover-wrapper">
+                        <span>[ 建设中 / Coming Soon ]</span>
+                    </div>
+                    <div class="game-card-body">
+                        <div class="game-title">资源待填充...</div>
+                        <div class="game-tags"><span class="tag">TBD</span></div>
+                    </div>
+                </div>
+
+                <div class="game-card" style="opacity: 0.6; cursor: not-allowed;">
+                    <div class="cover-wrapper">
+                        <span>[ 建设中 / Coming Soon ]</span>
+                    </div>
+                    <div class="game-card-body">
+                        <div class="game-title">资源待填充...</div>
+                        <div class="game-tags"><span class="tag">TBD</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SINGLE GAME DETAIL VIEW -->
+        <div id="game-detail-view">
+            <button class="btn back-btn" onclick="closeGameDetail()">
+                ← <span class="lang-zh">返回游戏列表</span><span class="lang-en">Back to Catalog</span>
+            </button>
+
+            <div class="detail-header">
+                <div class="detail-cover" style="display: flex; justify-content: center; align-items: center; color: var(--text-secondary);">
+                    [ Cover Image ]
+                </div>
+                <div class="detail-meta">
+                    <h1 id="detail-title">游戏名称</h1>
+                    <div class="game-tags" id="detail-tags" style="margin-bottom: 12px;"></div>
+                    
+                    <div class="meta-list">
+                        <div><strong><span class="lang-zh">所属会社：</span><span class="lang-en">Developer/Publisher:</span></strong> <span id="detail-company">-</span></div>
+                        <div><strong><span class="lang-zh">游戏别名：</span><span class="lang-en">Aliases:</span></strong> <span id="detail-alias">-</span></div>
+                        <div><strong><span class="lang-zh">发售日期：</span><span class="lang-en">Release Date:</span></strong> <span id="detail-date">-</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="detail-section">
+                <h4>
+                    <span class="lang-zh">游戏介绍</span>
+                    <span class="lang-en">Description</span>
+                </h4>
+                <p id="detail-desc" style="font-size: 0.92rem; color: var(--text-primary); line-height: 1.7;"></p>
+            </div>
+
+            <!-- Screenshots (No CGs) -->
+            <div class="detail-section">
+                <h4>
+                    <span class="lang-zh">游戏截图</span>
+                    <span class="lang-en">Screenshots</span>
+                </h4>
+                <div class="screenshot-grid">
+                    <div class="screenshot-item" style="display: flex; justify-content: center; align-items: center; color: var(--text-secondary);">[ Screenshot 1 ]</div>
+                    <div class="screenshot-item" style="display: flex; justify-content: center; align-items: center; color: var(--text-secondary);">[ Screenshot 2 ]</div>
+                    <div class="screenshot-item" style="display: flex; justify-content: center; align-items: center; color: var(--text-secondary);">[ Screenshot 3 ]</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Language & Theme
+        function toggleLanguage() {
+            const html = document.documentElement;
+            const currentLang = html.getAttribute('data-lang');
+            const newLang = currentLang === 'zh' ? 'en' : 'zh';
+            html.setAttribute('data-lang', newLang);
+            document.getElementById('lang-toggle').innerText = newLang === 'zh' ? 'English' : '中文';
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+        }
+
+        // Demo Game Data
+        const gameData = {
+            'demo1': {
+                title: '宝石少女 2nd.cut:For the Exquisite Attire',
+                tags: ['PC', '中文', '视觉小说'],
+                company: 'トトメトリ (Totometori)',
+                alias: 'Putrika 2nd.cut:For the Exquisite Attire / プトリカ 2nd.cut',
+                date: '2026-06-04',
+                desc: '在纯爱与嫉妒交织相融的珀亚教会，身为宝石技师的少年面临着被迫做出“生与死”的最终选择。宝石的光辉所摇曳着命运之夜，少年的决定将要跨越生死之境——请欣赏这篇最残酷，且最唯美的故事。'
+            }
+        };
+
+        // Open Game Detail View
+        function openGameDetail(gameId) {
+            const data = gameData[gameId];
+            if (!data) return;
+
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-company').innerText = data.company;
+            document.getElementById('detail-alias').innerText = data.alias;
+            document.getElementById('detail-date').innerText = data.date;
+            document.getElementById('detail-desc').innerText = data.desc;
+
+            const tagsContainer = document.getElementById('detail-tags');
+            tagsContainer.innerHTML = '';
+            data.tags.forEach(t => {
+                const span = document.createElement('span');
+                span.className = 'tag';
+                span.innerText = t;
+                tagsContainer.appendChild(span);
+            });
+
+            document.getElementById('game-list-view').style.display = 'none';
+            document.getElementById('game-detail-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Close Detail View
+        function closeGameDetail() {
+            document.getElementById('game-detail-view').style.display = 'none';
+            document.getElementById('game-list-view').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
