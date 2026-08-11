@@ -224,17 +224,22 @@
         }
 
         .timeline-item {
-            display: flex;
-            gap: 16px;
+            display: block;
             background: var(--bg-card);
             padding: 14px 16px;
             border-radius: 6px;
             border: 1px solid var(--border);
-            cursor: pointer;
+            color: inherit;
         }
 
         .timeline-item:hover {
             border-color: var(--accent);
+            text-decoration: none;
+        }
+
+        .timeline-header {
+            display: flex;
+            gap: 16px;
         }
 
         .time {
@@ -271,92 +276,27 @@
             letter-spacing: 0.5px;
         }
 
-        /* Contact Form */
-        .contact-form {
+        /* Contact Details Box */
+        .contact-box {
             background: var(--bg-card);
             border: 1px solid var(--border);
             padding: 20px;
             border-radius: 6px;
             display: flex;
             flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
             gap: 12px;
+            font-size: 0.95rem;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-group label {
-            font-size: 0.85rem;
+        .contact-item strong {
+            min-width: 80px;
             color: var(--text-secondary);
-        }
-
-        .form-group input, .form-group textarea {
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 0.9rem;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        /* Resource Modal / Drive View UI */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            width: 90%;
-            max-width: 700px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        .resource-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .resource-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 12px;
-            background: var(--bg-primary);
-            border-radius: 4px;
-            font-size: 0.88rem;
         }
 
         /* Footer */
@@ -384,7 +324,7 @@
 
         @media (max-width: 600px) {
             .hero-top { flex-direction: column; align-items: flex-start; }
-            .timeline-item { flex-direction: column; gap: 4px; }
+            .timeline-header { flex-direction: column; gap: 4px; }
             .time { min-width: auto; }
         }
     </style>
@@ -392,7 +332,7 @@
 <body>
 
     <div class="container">
-        <!-- System Controls -->
+        <!-- Controls -->
         <div class="controls">
             <button class="btn" id="lang-toggle" onclick="toggleLanguage()">English</button>
             <button class="btn" id="theme-toggle" onclick="toggleTheme()">☀️ / 🌙</button>
@@ -426,7 +366,7 @@
             </nav>
         </header>
 
-        <!-- About Me Section -->
+        <!-- About Section -->
         <section id="about">
             <h2 class="section-title">
                 <span class="lang-zh">关于我</span>
@@ -438,7 +378,7 @@
             </div>
         </section>
 
-        <!-- Portfolio / Projects Section (Direct to GitHub) -->
+        <!-- Portfolio / Projects Section -->
         <section id="projects">
             <h2 class="section-title">
                 <span class="lang-zh">作品集</span>
@@ -470,22 +410,23 @@
             </div>
         </section>
 
-        <!-- Game Resources Section (Opens Drive UI) -->
+        <!-- Game Resources Section (Direct Page/Link Redirect) -->
         <section id="games">
             <h2 class="section-title">
                 <span class="lang-zh">游戏资源分享</span>
                 <span class="lang-en">Game Resources & Vault</span>
             </h2>
             <div class="grid">
+                <!-- 点击直接跳转到子页面 games.html 或你的云盘链接 -->
                 <div class="card">
                     <div>
                         <h3>🎮 Game Mod / Preset</h3>
                         <p class="lang-zh">在此处分享游戏补丁、Mod、自制画质预设或配置文件。</p>
                         <p class="lang-en">Share game mods, patches, graphics presets, or custom configs here.</p>
                     </div>
-                    <button class="btn" style="align-self: flex-start; margin-top: 8px;" onclick="openDriveModal()">
-                        <span class="lang-zh">查看资源</span><span class="lang-en">View Resource</span>
-                    </button>
+                    <a href="games.html" target="_blank" class="btn" style="align-self: flex-start; margin-top: 8px;">
+                        <span class="lang-zh">查看资源 ↗</span><span class="lang-en">View Resource ↗</span>
+                    </a>
                 </div>
                 <div class="card">
                     <div>
@@ -493,29 +434,31 @@
                         <p class="lang-zh">分享实用的游戏辅助工具、小软件或汉化补丁链接。</p>
                         <p class="lang-en">Useful game utilities, tools, or translation patches download link.</p>
                     </div>
-                    <button class="btn" style="align-self: flex-start; margin-top: 8px;" onclick="openDriveModal()">
-                        <span class="lang-zh">查看资源</span><span class="lang-en">View Resource</span>
-                    </button>
+                    <a href="games.html" target="_blank" class="btn" style="align-self: flex-start; margin-top: 8px;">
+                        <span class="lang-zh">查看资源 ↗</span><span class="lang-en">View Resource ↗</span>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Timeline Section (Directs to LinkedIn) -->
+        <!-- Timeline Section (Direct LinkedIn Redirect) -->
         <section id="timeline">
             <h2 class="section-title">
                 <span class="lang-zh">个人经历</span>
                 <span class="lang-en">Timeline</span>
             </h2>
             <div class="timeline">
-                <div class="timeline-item" onclick="window.open('https://www.linkedin.com', '_blank')">
-                    <div class="time">2024 - <span class="lang-zh">至今</span><span class="lang-en">Present</span></div>
-                    <div class="timeline-content">
-                        <h4 class="lang-zh">计算机科学 / 软件项目探索 ↗</h4>
-                        <h4 class="lang-en">Computer Science & Projects ↗</h4>
-                        <p class="lang-zh">主修相关课程（点击查看 LinkedIn 履历详情）。</p>
-                        <p class="lang-en">Focusing on CS core concepts (Click to view LinkedIn profile).</p>
+                <a href="https://www.linkedin.com/in/kehan-li-3a233a2b5" target="_blank" class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="time">2024 - <span class="lang-zh">至今</span><span class="lang-en">Present</span></div>
+                        <div class="timeline-content">
+                            <h4 class="lang-zh">计算机科学 / 软件项目探索 ↗</h4>
+                            <h4 class="lang-en">Computer Science & Projects ↗</h4>
+                            <p class="lang-zh">点击在 LinkedIn 查看完整的职业与教育履历。</p>
+                            <p class="lang-en">Click to view full professional & education profile on LinkedIn.</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -540,26 +483,19 @@
         <!-- Contact Section -->
         <section id="contact">
             <h2 class="section-title">
-                <span class="lang-zh">联系我</span>
-                <span class="lang-en">Contact Me</span>
+                <span class="lang-zh">联系方式</span>
+                <span class="lang-en">Contact</span>
             </h2>
-            <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
-                <div class="form-group">
-                    <label><span class="lang-zh">姓名 / Name</span><span class="lang-en">Name</span></label>
-                    <input type="text" name="name" required placeholder="Your Name">
+            <div class="contact-box">
+                <div class="contact-item">
+                    <strong>LinkedIn:</strong>
+                    <a href="https://www.linkedin.com/in/kehan-li-3a233a2b5" target="_blank">linkedin.com/in/kehan-li-3a233a2b5 ↗</a>
                 </div>
-                <div class="form-group">
-                    <label><span class="lang-zh">邮箱 / Email</span><span class="lang-en">Email</span></label>
-                    <input type="email" name="_replyto" required placeholder="your.email@example.com">
+                <div class="contact-item">
+                    <strong>Email:</strong>
+                    <a href="mailto:kehan0809@gmail.com">kehan0809@gmail.com</a>
                 </div>
-                <div class="form-group">
-                    <label><span class="lang-zh">留言 / Message</span><span class="lang-en">Message</span></label>
-                    <textarea name="message" rows="4" required placeholder="Write your message here..."></textarea>
-                </div>
-                <button type="submit" class="btn" style="align-self: flex-start;">
-                    <span class="lang-zh">发送消息</span><span class="lang-en">Send Message</span>
-                </button>
-            </form>
+            </div>
         </section>
 
         <!-- Footer -->
@@ -567,37 +503,12 @@
             <div>© 2026 FWLightless. Built with GitHub Pages.</div>
             <div class="social-links">
                 <a href="https://github.com/FWLightless" target="_blank">GitHub</a>
-                <a href="mailto:your-email@example.com">Email</a>
-                <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+                <a href="mailto:kehan0809@gmail.com">Email</a>
+                <a href="https://www.linkedin.com/in/kehan-li-3a233a2b5" target="_blank">LinkedIn</a>
             </div>
         </footer>
     </div>
 
-    <!-- Resource Drive UI Modal -->
-    <div id="drive-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>📁 <span class="lang-zh">游戏资源云盘</span><span class="lang-en">Game Resource Vault</span></h3>
-                <button class="btn" onclick="closeDriveModal()">✕</button>
-            </div>
-            <ul class="resource-list">
-                <li class="resource-item">
-                    <span>📁 Age of History II (文明时代2) 游戏资源</span>
-                    <a href="#" class="btn" style="padding: 2px 8px;">下载 / View</a>
-                </li>
-                <li class="resource-item">
-                    <span>📁 Civilization VI (文明6) 游戏资源</span>
-                    <a href="#" class="btn" style="padding: 2px 8px;">下载 / View</a>
-                </li>
-                <li class="resource-item">
-                    <span>📁 Valheim (英灵神殿) 游戏资源</span>
-                    <a href="#" class="btn" style="padding: 2px 8px;">下载 / View</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Interactive Scripts -->
     <script>
         function toggleLanguage() {
             const html = document.documentElement;
@@ -612,21 +523,6 @@
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             html.setAttribute('data-theme', newTheme);
-        }
-
-        function openDriveModal() {
-            document.getElementById('drive-modal').style.display = 'flex';
-        }
-
-        function closeDriveModal() {
-            document.getElementById('drive-modal').style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('drive-modal');
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
         }
     </script>
 </body>
